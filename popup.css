@@ -1,0 +1,17 @@
+body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    min-width: 385px;
+    overflow-x: hidden;
+}
+
+img {
+    margin: 5px;
+    border: 2px solid transparent;
+    vertical-align: middle;
+    width: 75px;
+    height: 75px;
+  }
