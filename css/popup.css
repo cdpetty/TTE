@@ -1,11 +1,17 @@
 body {
     background-color: #ffffff;
     color: #000000;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 11pt;
+    font-family: Segoe UI, Arial, sans-serif;
+    font-size: 15pt;
+    text-align: center;
     line-height: 1.5;
     min-width: 385px;
     overflow-x: hidden;
+}
+
+#fulltext {
+    font-size: 13pt;
+    text-align: justify;
 }
 
 img {
