@@ -2,12 +2,13 @@
     "manifest_version": 2,
 
     "name": "Track This Element",
-    "description": "Track an element for changes",
+    "description": "Receive notifications when changes are made to webpages you are following.",
     "version": "0.0.1",
     "permissions": [
         "contextMenus", "storage"
     ],
     "browser_action": {
+        "defualt_icon": "icon.png",
         "default_popup": "popup.html"
     }
 }
