@@ -5,28 +5,42 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $('#check').click(function(){
-    storeNew("TEGUH", "1234", "teguh.com", "4");
-    get("TEGUH");
+    storeNew("teguh.com", "1234", "TEGUH", "4");
+    get("teguh.com");
+    nextUniqueId(function(id){
+        console.log(id);
+    });
 });
 
-function storeNew(title, hash, url, location){
+function storeNew(url, hash, title, location, callback){
     var obj = {};
-    obj[title] = {"hash":hash, "url":url, "location":location};
-    console.log(obj);
+    obj[url] = {"hash":hash, "title":title, "location":location};
     chrome.storage.sync.set(obj, function(){
-        console.log("Set");
+        callback();
     });
 }
-function update(title, hash){
-    chrome.storage.sync.get("title", function(found){
-        if (found){
-            console.log(found);
-        }
+function update(url, hash, callback){
+    chrome.storage.sync.get(url, function(found){
+        found.hash = hash;
+        chrome.storage.sync.set(found);
     });
 }
 
-function get(title){
-    chrome.storage.sync.get(title, function(found){
-        console.log(found);
+function get(url, callback){
+    chrome.storage.sync.get(url, function(found){
+        callback(found);
+    });
+}
+
+function nextUniqueId(callback){
+    chrome.storage.sync.get("uniqueid", function(found){
+        if (!found.uniqueid) {
+            chrome.storage.sync.set({"uniqueid": 1});
+            callback(0);
+        }
+        else{
+            chrome.storage.sync.set({"uniqueid": found.uniqueid + 1});
+            callback(found.uniqueid);
+        }
     });
 }
