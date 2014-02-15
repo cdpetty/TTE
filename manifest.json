@@ -8,6 +8,7 @@
         "contextMenus"
     ],
     "browser_action": {
+        "defualt_icon": "icon.png",
         "default_popup": "popup.html"
     }
 }
