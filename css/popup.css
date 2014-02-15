@@ -2,15 +2,15 @@ body {
     background-color: #ffffff;
     color: #000000;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.4em;
+    font-size: 11pt;
     line-height: 1.5;
-    min-width: 357px;
+    min-width: 385px;
     overflow-x: hidden;
 }
 
 img {
     margin: 5px;
-    border: 2px solid black;
+    border: 2px solid transparent;
     vertical-align: middle;
     width: 75px;
     height: 75px;
