@@ -91,7 +91,7 @@ var populate = function(){
             .text(toBeAdded.title)
             .appendTo(tracked_element);
         tracked_element.click(function(){
-            alert("SHOULD HAVE CREATED TAB BUT I DIDNDT CAUSE IM STUPID ASSHOLE:", toBeAdded.url);
+            console.log(toBeAdded, toBeAdded.url);
             chrome.tabs.create({ url: toBeAdded.url });
         });
         var tracked_element_dropdown = $('<img>')
@@ -127,6 +127,8 @@ $(document).ready(function(){
             var counter = 0;
             Object.keys(db_entries).forEach(function(key){
                 if (key !== "uniqueid" && counter < 5){
+                    db_entries[key].url = key;
+                    console.log(db_entries[key]);
                     elements.push(db_entries[key]);
                     counter++;
                 }
