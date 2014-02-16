@@ -3,6 +3,7 @@ body {
     box-sizing: border-box;
     font-family: Segoe UI, Arial, sans-serif;
     min-width: 385px;
+    max-width: 535px;
     overflow-x: hidden;
     padding-left: 15px;
     padding-right: 15px;
