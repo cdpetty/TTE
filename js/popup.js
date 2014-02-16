@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('hello world!');
 });
 
+function compare(url, html, callback){
+    var hash = CryptoJS.MD5(html_string);
+    console.log(hash);
+}
+
+function compareHash(
 function storeNew(url, hash, title, loc, callback){
     nextUniqueId(function(id){
         var obj = {};
