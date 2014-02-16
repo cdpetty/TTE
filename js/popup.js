@@ -152,8 +152,7 @@ $(document).ready(function(){
                 tracked_element.appendTo(".tracked_elements");
                 
                 //Watch for these events
-
-                console.log(tracked_element_dropdown.src)
+                
                 tracked_element_dropdown.click(function(){
                     tracked_element.siblings().each(function(sibling){
                         $(this).slideToggle("slow");
