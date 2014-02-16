@@ -106,7 +106,7 @@ var populate = function(){
         var toBeAdded = elements[element];
         var tracked_element = $('<div>')
             .attr("id", toBeAdded.uniqueid)
-            .addClass(tracked_element);
+            .addClass("tracked_element");
         var tracked_element_fav = $('<img>')
             .addClass("favicon")
             .attr("src", "icon16.png")//toBeAdded.favIcon)
@@ -131,7 +131,7 @@ var populate = function(){
             default: daysSinceString = daysSinceLastUpdate + " days ago";
         }
         var tracked_element_modified = $('<span>')
-            .text(daysSinceString)
+            .text("Modified: " + daysSinceString)
             .addClass("element_update")
             .appendTo(tracked_element);
         var tracked_element_hr = $('<hr/>')
