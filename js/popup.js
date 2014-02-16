@@ -87,10 +87,11 @@ var populate = function(){
             .attr("src", "temp_favicon.png")//toBeAdded.favIcon)
             .appendTo(tracked_element);
         var tracked_element_title = $('<span>')
-            .addClass("title");
+            .addClass("title")
             .text(toBeAdded.title)
             .appendTo(tracked_element);
-        $('.tracked_element_title').click(function(){
+        tracked_element.click(function(){
+            alert("SHOULD HAVE CREATED TAB BUT I DIDNDT CAUSE IM STUPID ASSHOLE:", toBeAdded.url);
             chrome.tabs.create({ url: toBeAdded.url });
         });
         var tracked_element_dropdown = $('<img>')
