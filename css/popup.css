@@ -8,6 +8,11 @@ body {
     padding-right: 15px;
 }
 
+a{
+    color: red;
+    text-decoration: none;
+}
+
 #header{
     font-weight: bold;
     font-size: 16pt;
@@ -23,23 +28,21 @@ body {
 .title{
     display: inline-block;
     font-weight: bold;
-    font-size: 16pt;
-    margin-right: 5px;
-    margin-left: 5px;
+    font-size: 13pt;
     text-align: left;
 }
 
+.fulltext {
+    font-size: 11pt;
+    line-height: 11px;
+    text-align: justify;
+}
+
 .tracked_elements{
-    
 }
 
 .tracked_element{
     line-height: 16px;
-}
-
-a{
-    color: red;
-    text-decoration: none;
 }
 
 .update {
@@ -47,10 +50,3 @@ a{
     font-size: 8pt;
     text-align: right;
 }
-
-.fulltext {
-    font-size: 9pt;
-    line-height: 11px;
-    text-align: justify;
-}
-
