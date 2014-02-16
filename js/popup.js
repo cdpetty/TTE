@@ -65,11 +65,14 @@ var check_tracked_elements = function(){
                     //console.log(elem.get(0).outerHTML);
                     var newHash = MD5(newHTML);
                     //website has changed and db needs to be updated
+                    console.log(newHash, tracked_element.hash);
                     if (newHash !== tracked_element.hash){
                         //update any elements that have been altered
-                        update(tracked_element.url, newHash, function(saved){
-                            console.log(saved);
-                            alert("URL:", url, "updated!");
+                        var obj = {};
+                        var dating = Date.now();
+                        obj[key] = {"hash":newHash, "title":tracked_element.title, "location":tracked_element.location, "id":tracked_element.id, "date":dating};
+                        chrome.storage.sync.set(obj, function(){
+                            console.log("SAVED");
                         });
                     }
                 });
