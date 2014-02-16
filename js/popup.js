@@ -122,7 +122,7 @@ var populate = function(){
         tracked_element_title.appendTo(tracked_element);
         var tracked_element_dropdown = $('<img>')
             .addClass("dropdown")
-            .attr("src", "down2.png")
+            .attr("src", "down.png")
             .appendTo(tracked_element);
         var currentDate = new Date();
         var daysSinceLastUpdate = Math.floor((currentDate - toBeAdded.date) / 1000 / 60 / 60 / 24);
