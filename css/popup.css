@@ -31,6 +31,7 @@ a{
     font-weight: bold;
     font-size: 13pt;
     text-align: left;
+    text-decoration: underline;
     width: 250px;
     white-space: nowrap;
     overflow: hidden;
