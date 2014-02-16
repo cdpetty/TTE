@@ -16,7 +16,9 @@ var nextUniqueId = function(callback){
 var storeNew = function(url, hash, title, loc, callback){
     nextUniqueId(function(id){
         var obj = {};
-        obj[url] = {"hash":hash, "title":title, "location":loc, "id":id, "date":new Date()};
+        var dating = Date.now();
+        console.log("DATE:", dating);
+        obj[url] = {"hash":hash, "title":title, "location":loc, "id":id, "date":dating};
         chrome.storage.sync.set(obj, function(){
             if (callback) callback(obj);
         });
@@ -27,7 +29,7 @@ var storeNew = function(url, hash, title, loc, callback){
 var update = function(url, hash, callback){
     chrome.storage.sync.get(url, function(found){
         var obj = {};
-        obj[url] = {"hash":hash, "title":found.title, "location":found.loc, "id":found.id, "date":new Date()}
+        obj[url] = {"hash":hash, "title":found.title, "location":found.loc, "id":found.id, "date":Date.now()}
         chrome.storage.sync.set(obj, function(){
             if (callback) callback(obj);
         });
@@ -123,7 +125,7 @@ var populate = function(){
             .attr("src", "down.png")
             .appendTo(tracked_element);
         var currentDate = new Date();
-        var daysSinceLastUpdate = Math.floor((currentDate - tracked_element.date) / 1000 / 60 / 60 / 24);
+        var daysSinceLastUpdate = Math.floor((currentDate - toBeAdded.date) / 1000 / 60 / 60 / 24);
         var daysSinceString = "";
         switch (daysSinceLastUpdate){
             case 0: daysSinceString = "Today"; break;
