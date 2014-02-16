@@ -112,9 +112,12 @@ var populate = function(){
             .attr("src", "icon16.png")//toBeAdded.favIcon)
             .appendTo(tracked_element);
         var tracked_element_title = $('<span>')
-            .addClass("title")
+            .addClass("title");
+        var tracked_element_a = $('<a>')
             .text(toBeAdded.title)
-            .appendTo(tracked_element);
+            .attr("src", toBeAdded.url)
+            .appendTo(tracked_element_title);
+        tracked_element_title.appendTo(tracked_element);
         var tracked_element_dropdown = $('<img>')
             .addClass("dropdown")
             .attr("src", "down.png")
