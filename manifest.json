@@ -8,9 +8,9 @@
         "contextMenus", "storage"
     ],
     "background": {
-        "scripts" : {
+        "scripts" : [
             "./js/context.html"
-        },
+        ],
         "persistent": true
     },
     "browser_action": {
