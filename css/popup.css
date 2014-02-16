@@ -1,63 +1,51 @@
 body {
     background-color: #ffffff;
+    box-sizing: border-box;
     font-family: Segoe UI, Arial, sans-serif;
-    text-align: center;
-    line-height: 1.5;
     min-width: 385px;
     overflow-x: hidden;
     padding-left: 15px;
     padding-right: 15px;
-    box-sizing:border-box;
 }
 
 #header{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16pt;
+    text-align: center;
+    padding-bottom: 10px;
 }
 .favicon{
     display: inline-block;
     height: 16px;
     width: 16px;
 }
+
 .title{
+    display: inline-block;
     font-weight: bold;
     font-size: 16pt;
-    display: inline-block;
     margin-right: 5px;
     margin-left: 5px;
+    text-align: left;
 }
+
 .tracked_elements{
     
 }
 
 .tracked_element{
-    
+    line-height: 16px;
 }
+
 a{
-    text-decoration:none;
-    color:red;
-}
-
-.dropupbutton {
-	width: 0; 
-	height: 0; 
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-bottom: 5px solid black;
-}
-
-.dropdownbutton {
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 15px solid #f00;
-    display: inline-block;
+    color: red;
+    text-decoration: none;
 }
 
 .update {
-    font-size: 8pt;
     color: #808080;
+    font-size: 8pt;
+    text-align: right;
 }
 
 .fulltext {
