@@ -91,7 +91,7 @@ $(document).ready(function(){
                     .addClass("tracked_element");
                 var tracked_element_fav = $('<img>')
                     .addClass("favicon")
-                    .attr("src", favicon_str + key)//toBeAdded.favIcon)
+                    .attr("src", favicon_str + key)
                     .appendTo(tracked_element);
                 var tracked_element_title = $('<span>')
                     .addClass("title")
