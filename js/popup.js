@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function compare(url, html, callback){
-    var hash = CryptoJS.MD5(html_string);
+    var hash = MD5(html);
     console.log(hash);
+    chrome.storage.sync.get(url, function(found){
+        
+    });
 }
 
-function compareHash(
 function storeNew(url, hash, title, loc, callback){
     nextUniqueId(function(id){
         var obj = {};
