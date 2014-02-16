@@ -1,7 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('hello world!');
-});
-
 //generate the next unique id (used to tell tracked instances that have the same url apart)
 var nextUniqueId = function(callback){
     chrome.storage.sync.get("uniqueid", function(found){
