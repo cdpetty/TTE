@@ -75,8 +75,7 @@ function getDate(){
 
 var elements = [];
 var showThisManyElements = null;
-
-
+var favicon_str = "http://getfavicon.appspot.com/";
 
 $(document).ready(function(){
     dumpdb(function(db_entries){
@@ -92,7 +91,7 @@ $(document).ready(function(){
                     .addClass("tracked_element");
                 var tracked_element_fav = $('<img>')
                     .addClass("favicon")
-                    .attr("src", "temp_favicon.png")//toBeAdded.favIcon)
+                    .attr("src", favicon_str + key)//toBeAdded.favIcon)
                     .appendTo(tracked_element);
                 var tracked_element_title = $('<span>')
                     .addClass("title")
