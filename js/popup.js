@@ -60,15 +60,16 @@ var check_tracked_elements = function(){
                 $.get(key, function(data){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
                     var newHTML = data;
-                    console.log('thisis', tracked_element.location);
+                    //console.log('thisis', tracked_element.location);
                     var elem = $(tracked_element.location.toLowerCase(), parseHTML(data));
-                    console.log(elem.get(0).outerHTML);
+                    //console.log(elem.get(0).outerHTML);
                     var newHash = MD5(newHTML);
                     //website has changed and db needs to be updated
                     if (newHash !== tracked_element.hash){
                         //update any elements that have been altered
                         update(tracked_element.url, newHash, function(saved){
-                            console.log(saved); 
+                            console.log(saved);
+                            alert("URL:", url, "updated!");
                         });
                     }
                 });
@@ -80,7 +81,7 @@ var check_tracked_elements = function(){
     });
 }
 
-setInterval(check_tracked_elements, 5*1000*60);
+setInterval(check_tracked_elements, .15*1000*60);
 
 var favicon_str = "http://getfavicon.appspot.com/";
 
@@ -134,7 +135,7 @@ $(document).ready(function(){
                         tracked_element_dropdown.attr("src", "up.png");
                         $.get(key, function(data){
                             var newHTML = data;
-                            console.log(obj);
+                            //console.log(obj);
                             var elem = $(obj.location.toLowerCase(), parseHTML(data));
                             var summary = elem.get(0).innerText;
                             $('.fulltext').prepend(summary);
@@ -148,7 +149,7 @@ $(document).ready(function(){
 
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
-                    console.log("ELEMENTNAME:", elementName);
+                    //console.log("ELEMENTNAME:", elementName);
                     chrome.tabs.create({ url: toBeAdded.url });
                 });
             }
@@ -156,12 +157,3 @@ $(document).ready(function(){
     });
     $('.update').text("Last Updated: " + getDate());
 });
-
-function parse(node){
-    var path = [];
-    var el = node;
-    do {
-    path.unshift(el.nodeName + (el.className ? ' class="' + el.className + '"' : ''));
-    } while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
-    return (path.join(" > "));
-}
