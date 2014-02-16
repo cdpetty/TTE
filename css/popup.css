@@ -2,16 +2,27 @@ body {
     background-color: #ffffff;
     color: #000000;
     font-family: Segoe UI, Arial, sans-serif;
-    font-size: 15pt;
+    font-size: 13pt;
     text-align: center;
     line-height: 1.5;
     min-width: 385px;
     overflow-x: hidden;
 }
 
-#fulltext {
+h1 {
+    font-family: Segoe UI, Arial, sans-serif;
     font-size: 13pt;
+    font-weight: bold;
+}
+
+.fulltext {
+    font-size: 9pt;
     text-align: justify;
+}
+
+.update {
+    font-size: 8pt;
+    color: #808080;
 }
 
 img {
