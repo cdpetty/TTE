@@ -7,6 +7,8 @@ body {
     line-height: 1.5;
     min-width: 385px;
     overflow-x: hidden;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 h1 {
