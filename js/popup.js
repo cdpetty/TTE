@@ -28,7 +28,7 @@ var dumpdb = function(callback){
     });
 }
 
-function getDate(){
+var getDate =  function(){
     var unformatedDate = new Date();
     var formatedDate = '';
     formatedDate += (unformatedDate.getMonth() + 1) + '/';
@@ -107,7 +107,6 @@ $(document).ready(function(){
             if (key !== "uniqueid"){
                 var obj = $.extend({}, db_entries[key]);
                 obj["url"] = key;
-                console.log("This is the key:", obj.url, "for object:", obj);
                 var toBeAdded = obj;
                 var tracked_element = $('<div>')
                     .attr("id", obj.url)//"e" + toBeAdded.uniqueid)
@@ -140,6 +139,22 @@ $(document).ready(function(){
                     .appendTo(tracked_element);
                 tracked_element.appendTo(".tracked_elements");
                 
+                //Watch for these events
+
+                console.log(tracked_element_dropdown.src)
+                tracked_element_dropdown.click(function(){
+                    tracked_element.siblings().each(function(sibling){
+                        $(this).slideToggle("slow");
+                    });
+                    $('.fulltext').slideToggle("fast");
+                    if (tracked_element_dropdown.attr("src") === "down.png"){
+                      tracked_element_dropdown.attr("src", "up.png");
+                    }
+                    else{
+                      tracked_element_dropdown.attr("src", "down.png");
+                    }
+                });
+
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
                     console.log("ELEMENTNAME:", elementName);
@@ -148,4 +163,14 @@ $(document).ready(function(){
             }
         });
     });
+    $('.update').text("Last Updated: " + getDate());
 });
+
+function parse(node){
+    var path = [];
+    var el = node;
+    do {
+    path.unshift(el.nodeName + (el.className ? ' class="' + el.className + '"' : ''));
+    } while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
+    return (path.join(" > "));
+}

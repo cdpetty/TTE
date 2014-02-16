@@ -43,8 +43,9 @@ a{
 
 .fulltext {
     font-size: 11pt;
-    line-height: 11px;
+    line-height: 12pt;
     text-align: justify;
+    display: none;
 }
 
 .tracked_elements{
