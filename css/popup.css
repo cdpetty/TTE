@@ -8,6 +8,11 @@ body {
     padding-right: 15px;
 }
 
+a{
+    color: red;
+    text-decoration: none;
+}
+
 #header{
     font-weight: bold;
     font-size: 16pt;
@@ -35,11 +40,6 @@ body {
 
 .tracked_element{
     line-height: 16px;
-}
-
-a{
-    color: red;
-    text-decoration: none;
 }
 
 .update {
