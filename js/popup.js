@@ -70,6 +70,12 @@ function getElementByHash(hashValue) {
     return el;
 }
 
+function toNode(html) {
+    var doc = document.createElement('html');
+    doc.innerHTML = html;
+    return doc;
+}
+
 var check_tracked_elements = function(){
     dumpdb(function(db_entries){
         //iterate over all the tracked entries in the db
@@ -78,7 +84,7 @@ var check_tracked_elements = function(){
                 var tracked_element = db_entries[key];
                 $.get(key, function(data){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
-                    var newHTML = data;
+                    var newHTML = toNode(data);
                     /*
                     var newHash = MD5(newHTML);
                     
@@ -104,7 +110,7 @@ var check_tracked_elements = function(){
     });
 }
 
-setInterval(check_tracked_elements, 5*1000*60);
+//setInterval(check_tracked_elements, 5*1000*60);
 
 var favicon_str = "http://getfavicon.appspot.com/";
 
