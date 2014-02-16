@@ -9,7 +9,7 @@ body {
 }
 
 a{
-    color: red;
+    color: #003348;
     text-decoration: none;
 }
 
@@ -26,10 +26,15 @@ a{
 }
 
 .title{
+    color: #00348;
     display: inline-block;
     font-weight: bold;
     font-size: 13pt;
     text-align: left;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .fulltext {
