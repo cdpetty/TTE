@@ -34,7 +34,7 @@ var check_tracked_elements = function(){
         Object.keys(db_entries).forEach(function(key){
             if (key !== "uniqueid"){
                 var tracked_element = db_entries[key];
-                $.get(tracked_element.url, function(data){
+                $.get(key, function(data){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:
                     var newHTML*/
                     var newHash = MD5(newHTML)
@@ -76,62 +76,53 @@ function getDate(){
 var elements = [];
 var showThisManyElements = null;
 
-var populate = function(){
-    for(var element = 0; element < (showThisManyElements | elements.length % 5); element++){
-        var toBeAdded = elements[element];
-        var tracked_element = $('<div>')
-            .attr("id", toBeAdded.uniqueid)
-            .addClass("tracked_element");
-        var tracked_element_fav = $('<img>')
-            .addClass("favicon")
-            .attr("src", "temp_favicon.png")//toBeAdded.favIcon)
-            .appendTo(tracked_element);
-        var tracked_element_title = $('<span>')
-            .addClass("title")
-            .text(toBeAdded.title)
-            .appendTo(tracked_element);
-        tracked_element.click(function(){
-            chrome.tabs.create({ url: toBeAdded.url });
-        });
-        var tracked_element_dropdown = $('<img>')
-            .addClass("dropdown")
-            .attr("src", "down.png")
-            .appendTo(tracked_element);
-        var currentDate = new Date();
-        var daysSinceLastUpdate = Math.floor((currentDate - toBeAdded.date) / 1000 / 60 / 60 / 24);
-        var daysSinceString = "";
-        switch (daysSinceLastUpdate){
-            case 0: daysSinceString = "Today"; break;
-            case 1: daysSinceString = "1 day ago"; break;
-            default: daysSinceString = daysSinceLastUpdate + " days ago";
-        }
-        var tracked_element_modified = $('<span>')
-            .text("Modified: " + daysSinceString)
-            .addClass("element_update")
-            .appendTo(tracked_element);
-        var tracked_element_hr = $('<hr/>')
-            .appendTo(tracked_element);
-        tracked_element.appendTo(".tracked_elements");
-    }
-}
 
 
 $(document).ready(function(){
-    if (elements.length !== 0){
-        populate();
-    }
-    else{
-        dumpdb(function(db_entries){
-            //iterate over all the tracked entries in the db
-            var counter = 0;
-            Object.keys(db_entries).forEach(function(key){
-                if (key !== "uniqueid" && counter < 5){
-                    db_entries[key].url = key;
-                    elements.push(db_entries[key]);
-                    counter++;
+    dumpdb(function(db_entries){
+        //iterate over all the tracked entries in the db
+        Object.keys(db_entries).forEach(function(key){
+            if (key !== "uniqueid"){
+                var obj = $.extend({}, db_entries[key]);
+                obj["url"] = key;
+                console.log("This is the key:", obj.url, "for object:", obj);
+                var toBeAdded = obj;
+                var tracked_element = $('<div>')
+                    .attr("id", obj.url)//"e" + toBeAdded.uniqueid)
+                    .addClass("tracked_element");
+                var tracked_element_fav = $('<img>')
+                    .addClass("favicon")
+                    .attr("src", "temp_favicon.png")//toBeAdded.favIcon)
+                    .appendTo(tracked_element);
+                var tracked_element_title = $('<span>')
+                    .addClass("title")
+                    .text(toBeAdded.title)
+                    .appendTo(tracked_element);
+                var tracked_element_dropdown = $('<img>')
+                    .addClass("dropdown")
+                    .attr("src", "down.png")
+                    .appendTo(tracked_element);
+                var currentDate = new Date();
+                var daysSinceLastUpdate = Math.floor((currentDate - toBeAdded.date) / 1000 / 60 / 60 / 24);
+                var daysSinceString = "";
+                switch (daysSinceLastUpdate){
+                    case 0: daysSinceString = "Today"; break;
+                    case 1: daysSinceString = "1 day ago"; break;
+                    default: daysSinceString = daysSinceLastUpdate + " days ago";
                 }
-            });
-            populate();
+                var tracked_element_modified = $('<span>')
+                    .text("Modified: " + daysSinceString)
+                    .addClass("element_update")
+                    .appendTo(tracked_element);
+                var tracked_element_hr = $('<hr/>')
+                    .appendTo(tracked_element);
+                tracked_element.appendTo(".tracked_elements");
+                var elementName = "#e" + toBeAdded.uniqueid;
+                tracked_element.click(function(){
+                    console.log("ELEMENTNAME:", elementName);
+                    chrome.tabs.create({ url: toBeAdded.url });
+                });
+            }
         });
-    }
+    });
 });
