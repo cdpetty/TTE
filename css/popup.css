@@ -32,7 +32,7 @@ a{
     font-size: 13pt;
     text-align: left;
     text-decoration: underline;
-    width: 250px;
+    width: 90%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -49,10 +49,19 @@ a{
 
 .tracked_element{
     line-height: 16px;
+    margin: 0 auto;
+}
+
+.show_more{
+    color: #404040;
+    font-size: 9pt;
+    text-align: left;
+    float: left;
 }
 
 .update, .element_update {
     color: #808080;
     font-size: 8pt;
     text-align: right;
+    float: right;
 }
