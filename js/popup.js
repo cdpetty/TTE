@@ -111,7 +111,7 @@ var populate = function(){
             .addClass("tracked_element");
         var tracked_element_fav = $('<img>')
             .addClass("favicon")
-            .attr("src", "icon16.png")//toBeAdded.favIcon)
+            .attr("src", "temp_favicon.png")//toBeAdded.favIcon)
             .appendTo(tracked_element);
         var tracked_element_title = $('<span>')
             .addClass("title");
