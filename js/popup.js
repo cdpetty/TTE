@@ -2,7 +2,7 @@
 var update = function(url, hash, callback){
     chrome.storage.sync.get(url, function(found){
         var obj = {};
-        obj[url] = {"hash":hash, "title":found.title, "location":found.loc, "id":found.id, "date":Date.now()}
+        obj[url] = {"hash":hash, "title":found.title, "location":found.location, "id":found.id, "date":Date.now()}
         chrome.storage.sync.set(obj, function(){
             if (callback) callback(obj);
         });
@@ -35,45 +35,10 @@ function getDate(){
     formatedDate += unformatedDate.getDate() + '/';
     formatedDate += unformatedDate.getFullYear() + ' at ';
     formatedDate += unformatedDate.getHours() % 12 == 0 ? 12 : (unformatedDate.getHours()%12)+ ':';
-    formatedDate += unformatedDate.getMinutes();
+    formatedDate += unformatedDate.getMinutes() < 10 ? '0' + unformatedDate.getMinutes() : unformatedDate.getMinutes();
     if (unformatedDate.getHours() >=11) formatedDate += ' PM';
     else formatedDate += ' AM';
     return formatedDate;
-}
-
-function getElementByHash(hashValue) {
-    var el = null;
-    var frags = hashValue.split(":");
-    if (frags.length !== 3)
-        return null;
-
-    else {
-        var tag = frags[0];
-        var hashKey = frags[1];
-        var hash = parseInt(frags[2]);
-
-        $('body *').each(function() {
-            if (hashKey == "H") {
-                if ((getHash($(this).html()) - hash) == 0) {
-                    el = $(this);
-                    return false;
-                }
-            }
-            else {
-                if ((getHash(getElementAttributes($(this))) - hash) == 0) {
-                    el = $(this);
-                    return false;
-                }                    
-            }
-        });
-    }
-    return el;
-}
-
-function toNode(html) {
-    var doc = document.createElement('html');
-    doc.innerHTML = html;
-    return doc;
 }
 
 var check_tracked_elements = function(){
@@ -84,7 +49,28 @@ var check_tracked_elements = function(){
                 var tracked_element = db_entries[key];
                 $.get(key, function(data){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
-                    var newHTML = toNode(data);
+                    var newHTML = data;
+                    var path = tracked_element.location.split('/');
+                    console.log(path);
+                    path.forEach(function(el, i) {
+                        var times = 1;
+                        if(el.indexOf('.') > 0) {
+                            var sp = el.split('.');
+                            times += parseInt(sp[1], 10);
+                            el = sp[0];
+                        }
+                        for(var i=0;i<times;i++) {
+                            newHTML = data.substring(data.indexOf('<' + el.toLowerCase()));
+                        }
+                    });
+                    var lastTag = path[path.length - 1].toLowerCase();
+                    if(lastTag.indexOf('.') > 0) {
+                        lastTag = lastTag.substring(0, lastTag.indexOf('.'));
+                    }
+                    lastTag = '</' + lastTag + '>';
+                    var tagIndex = newHTML.indexOf(lastTag);
+                    newHTML = newHTML.substring(0, tagIndex+lastTag.length);
+                    console.log(newHTML);
                     /*
                     var newHash = MD5(newHTML);
                     
@@ -100,7 +86,7 @@ var check_tracked_elements = function(){
                         var currentDate = new Date();
                         var daysSinceLastChange = (currentDate - tracked_element.date) / 1000 / 60 / 60 / 24;
                     }*/
-                    console.log(newHTML);
+                    //console.log(newHTML);
                 });
             }
         });
