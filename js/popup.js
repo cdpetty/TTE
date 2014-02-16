@@ -156,11 +156,26 @@ $(document).ready(function(){
                 
                 //Watch for these events
                 tracked_element_dropdown.click(function(){
-                    tracked_element.siblings().each(function(sibling){
-                        $(this).fadeOut("slow");
-                    });
-                    $('.fulltext').fadeIn();
+                    if (tracked_element_dropdown.attr("src") === "down.png"){
+                        tracked_element.siblings().each(function(sibling){
+                            $(this).fadeOut("slow");
+                        });
+                        //PUT WHAT FULL TEXT SHOULD HAVE
+                        $('.fulltext').fadeIn(function(){
+                            tracked_element_dropdown.attr("src", "up.png");
+                        });
+                    }
+                    else{
+                        //PUT WHAT FULL TEXT SHOULD HAVE
+                        $('.fulltext').fadeOut(function(){
+                            tracked_element.siblings().each(function(sibling){
+                                $(this).fadeIn("slow");
+                            });
+                        });
+                        tracked_element_dropdown.attr("src", "down.png");
+                    }
                 });
+                
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
                     console.log("ELEMENTNAME:", elementName);
