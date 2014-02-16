@@ -1,8 +1,9 @@
 //update a db entry
 var update = function(url, hash, callback){
-    chrome.storage.sync.get(url, function(found){
+    get(url, function(found){
+        console.log(found);
         var obj = {};
-        obj[url] = {"hash":hash, "title":found.title, "location":found.location, "id":found.id, "date":Date.now()}
+        obj[url] = {"hash":hash, "title":found[url].title, "location":found[url].location, "id":found[url].id, "date":Date.now()}
         chrome.storage.sync.set(obj, function(){
             if (callback) callback(obj);
         });
@@ -79,7 +80,7 @@ var check_tracked_elements = function(){
     });
 }
 
-//setInterval(check_tracked_elements, 5*1000*60);
+setInterval(check_tracked_elements, 5*1000*60);
 
 var favicon_str = "http://getfavicon.appspot.com/";
 
@@ -92,7 +93,7 @@ $(document).ready(function(){
                 obj["url"] = key;
                 var toBeAdded = obj;
                 var tracked_element = $('<div>')
-                    .attr("id", obj.url)//"e" + toBeAdded.uniqueid)
+                    .attr("id", obj.url)
                     .addClass("tracked_element");
                 var tracked_element_fav = $('<img>')
                     .addClass("favicon")
@@ -130,10 +131,18 @@ $(document).ready(function(){
                     });
                     $('.fulltext').slideToggle("fast");
                     if (tracked_element_dropdown.attr("src") === "down.png"){
-                      tracked_element_dropdown.attr("src", "up.png");
+                        tracked_element_dropdown.attr("src", "up.png");
+                        $.get(key, function(data){
+                            var newHTML = data;
+                            console.log(obj);
+                            var elem = $(obj.location.toLowerCase(), parseHTML(data));
+                            var summary = elem.get(0).innerText;
+                            $('.fulltext').prepend(summary);
+                        });
                     }
                     else{
                       tracked_element_dropdown.attr("src", "down.png");
+                        $('.fulltext').html("<hr/>");
                     }
                 });
 

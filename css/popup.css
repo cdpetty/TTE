@@ -51,6 +51,10 @@ a{
     line-height: 12pt;
     text-align: justify;
     display: none;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:wrap;
+    
 }
 
 .tracked_elements{
