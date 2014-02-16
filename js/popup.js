@@ -155,11 +155,14 @@ $(document).ready(function(){
                 tracked_element.appendTo(".tracked_elements");
                 
                 //Watch for these events
+
+                console.log(tracked_element_dropdown.src)
                 tracked_element_dropdown.click(function(){
                     tracked_element.siblings().each(function(sibling){
-                        $(this).fadeOut("slow");
+                        $(this).slideUp("slow");
                     });
-                    $('.fulltext').fadeIn();
+                    $('.fulltext').fadeIn("slow");
+                    tracked_element_dropdown.attr("src", "up.png");
                 });
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
