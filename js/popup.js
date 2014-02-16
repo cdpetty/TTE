@@ -51,6 +51,9 @@ function parseHTML(markup) {
     }
     return doc;
 }
+
+var updated = false;
+
 var check_tracked_elements = function(){
     dumpdb(function(db_entries){
         //iterate over all the tracked entries in the db
@@ -73,6 +76,7 @@ var check_tracked_elements = function(){
                         obj[key] = {"hash":newHash, "title":tracked_element.title, "location":tracked_element.location, "id":tracked_element.id, "date":dating};
                         chrome.storage.sync.set(obj, function(){
                             console.log("SAVED");
+                            updated = true;
                         });
                     }
                 });
@@ -82,6 +86,9 @@ var check_tracked_elements = function(){
         $('.update').text("Last Updated: " + getDate());
         /*CHANGE OVERALL TIME*/
     });
+    if (updated){
+        chrome.browserAction.setIcon({path: 'icon_updated.png'})
+    }
 }
 
 setInterval(check_tracked_elements, .15*1000*60);
@@ -159,4 +166,8 @@ $(document).ready(function(){
         });
     });
     $('.update').text("Last Updated: " + getDate());
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+    updated = false;
 });
