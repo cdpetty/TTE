@@ -98,7 +98,7 @@ var check_tracked_elements = function(){
             }
         });
         
-        $('.update').text("Last Updated: " getDate());
+        $('.update').text("Last Updated: " + getDate());
         /*CHANGE OVERALL TIME*/
     });
 }
