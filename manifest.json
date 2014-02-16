@@ -10,7 +10,7 @@
         "tabs"
     ],
     "background": {
-        "scripts": ["js/background.js"]
+        "scripts": ["lib/jquery-2.1.0.js", "js/background.js"]
     },
     "icons" : {
         "16": "icon16.png"
@@ -24,6 +24,7 @@
             "matches" : [
                 "<all_urls>"
             ], "js": [
+                "lib/jquery-2.1.0.js",
                 "js/context.js"
             ]
         }

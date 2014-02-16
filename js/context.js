@@ -2,7 +2,7 @@ function getElementHash(el, tag)
 {
     var hashKey = "H";
     var hashContent = $.trim(el.html());
-    
+
     if (hashContent === "")
     {
         hashContent = getElementAttributes(el);        
@@ -11,7 +11,7 @@ function getElementHash(el, tag)
         else
             hashKey = "";
     }
-    
+
     if (hashKey !== "")
         return(tag + ":" + hashKey + ":" + getHash(hashContent));
     else
@@ -20,12 +20,12 @@ function getElementHash(el, tag)
 
 function getElementAttributes(el)
 {
-   var allAttribs = el[0].attributes;
+    var allAttribs = el[0].attributes;
     attribs = "";
     for(var i=0;i<allAttribs.length;i++) { 
         attribs += allAttribs[i].nodeName + "-" + allAttribs[i].nodeValue + ";";
     }
-    
+
     return attribs;
 }
 
@@ -43,33 +43,33 @@ function getElementByHash(hashValue)
 
         $("#main " + tag).each(function() {
             if (hashKey == "H")
-            {
-                if ((getHash($(this).html()) - hash) == 0)
-                {
-                    el = $(this);
-                    return false;
-                }
-            }
+        {
+            if ((getHash($(this).html()) - hash) == 0)
+        {
+            el = $(this);
+            return false;
+        }
+        }
             else
-            {
-          
-                if ((getHash(getElementAttributes($(this))) - hash) == 0)
-                {
-                    el = $(this);
-                    return false;
-                }                    
-            }
+        {
+
+            if ((getHash(getElementAttributes($(this))) - hash) == 0)
+        {
+            el = $(this);
+            return false;
+        }                    
+        }
         });
     }
     return el;
 }
 
 function getHash(s) {
-        var hash = 0;
-        for (var i = 0; i < s.length; i++) {
-                hash = parseInt(s.charCodeAt(i)) + ( parseInt(hash << 5) - parseInt(hash) );
-        }
-        return hash;
+    var hash = 0;
+    for (var i = 0; i < s.length; i++) {
+        hash = parseInt(s.charCodeAt(i)) + ( parseInt(hash << 5) - parseInt(hash) );
+    }
+    return hash;
 }
 
 var target = null;
@@ -80,5 +80,5 @@ document.addEventListener('mousedown', function(event) {
 chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
     console.log(req, sender);
     console.log(target.outerHTML);
-    sendResponse({html: target.outerHTML, hash: getElementHash(target, target.nodeName)});
+    sendResponse({'html': target.outerHTML, 'hash': getElementHash($(target), target.nodeName)});
 });
