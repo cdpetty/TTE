@@ -91,7 +91,6 @@ var storeNew = function(url, hash, title, loc, callback){
     nextUniqueId(function(id){
         var obj = {};
         var dating = Date.now();
-        console.log("DATE:", dating);
         obj[url] = {"hash":hash, "title":title, "location":loc, "id":id, "date":dating};
         chrome.storage.sync.set(obj, function(){
             if (callback) callback(obj);
