@@ -28,15 +28,16 @@ var dumpdb = function(callback){
     });
 }
 
-function getDate(){
+var getDate =  function(){
     var unformatedDate = new Date();
     var formatedDate = '';
     formatedDate += (unformatedDate.getMonth() + 1) + '/';
     formatedDate += unformatedDate.getDate() + '/';
     formatedDate += unformatedDate.getFullYear() + ' at ';
     formatedDate += unformatedDate.getHours() % 12 == 0 ? 12 : (unformatedDate.getHours()%12)+ ':';
-    formatedDate += unformatedDate.getMinutes();
-    if (unformatedDate.getHours() >=11) formatedDate += ' PM';
+    var minutes = unformatedDate.getMinutes().length == 1 ? "0" + unformatedDate.getMinutes() : unformatedDate.getMinutes();
+    formatedDate += minutes;
+    if (unformatedDate.getHours() >= 11) formatedDate += ' PM';
     else formatedDate += ' AM';
     return formatedDate;
 }
@@ -63,7 +64,7 @@ function getElementByHash(hashValue) {
                 if ((getHash(getElementAttributes($(this))) - hash) == 0) {
                     el = $(this);
                     return false;
-                }                    
+                }
             }
         });
     }
@@ -121,7 +122,6 @@ $(document).ready(function(){
             if (key !== "uniqueid"){
                 var obj = $.extend({}, db_entries[key]);
                 obj["url"] = key;
-                console.log("This is the key:", obj.url, "for object:", obj);
                 var toBeAdded = obj;
                 var tracked_element = $('<div>')
                     .attr("id", obj.url)//"e" + toBeAdded.uniqueid)
@@ -154,6 +154,12 @@ $(document).ready(function(){
                     .appendTo(tracked_element);
                 tracked_element.appendTo(".tracked_elements");
                 
+                //Watch for these events
+                tracked_element_dropdown.click(function(){
+                    tracked_element.siblings().each(function(sibling){
+                        $(this).fadeOut("slow");
+                    });
+                });
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
                     console.log("ELEMENTNAME:", elementName);
@@ -162,4 +168,14 @@ $(document).ready(function(){
             }
         });
     });
+    $('.update').text("Last Updated: " + getDate());
 });
+
+function parse(node){
+    var path = [];
+    var el = node;
+    do {
+    path.unshift(el.nodeName + (el.className ? ' class="' + el.className + '"' : ''));
+    } while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
+    return (path.join(" > "));
+}
