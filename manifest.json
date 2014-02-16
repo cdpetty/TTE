@@ -7,6 +7,9 @@
     "permissions": [
         "contextMenus", "storage"
     ],
+    "icons" : {
+        "16": "icon16.png"
+    },
     "background": {
         "scripts" : [
             "js/context.js"

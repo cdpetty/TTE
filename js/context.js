@@ -1,4 +1,8 @@
 var clickHandler = function(info, tab) {
+    //selection editable: true
+    //link linkUrl defined
+    //img mediaType: image
+    //vid mediaType: video
     console.log(info);
     var faviconUrl = tab.faviconUrl;
     var url = tab.url;
