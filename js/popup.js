@@ -1,30 +1,3 @@
-//generate the next unique id (used to tell tracked instances that have the same url apart)
-var nextUniqueId = function(callback){
-    chrome.storage.sync.get("uniqueid", function(found){
-        if (!found.uniqueid) {
-            chrome.storage.sync.set({"uniqueid": 1});
-            if (callback) callback(0);
-        }
-        else{
-            chrome.storage.sync.set({"uniqueid": found.uniqueid + 1});
-            if (callback) callback(found.uniqueid);
-        }
-    });
-}
-
-//Store a new instance of a tracked element in the db
-var storeNew = function(url, hash, title, loc, callback){
-    nextUniqueId(function(id){
-        var obj = {};
-        var dating = Date.now();
-        console.log("DATE:", dating);
-        obj[url] = {"hash":hash, "title":title, "location":loc, "id":id, "date":dating};
-        chrome.storage.sync.set(obj, function(){
-            if (callback) callback(obj);
-        });
-    });
-}
-
 //update a db entry
 var update = function(url, hash, callback){
     chrome.storage.sync.get(url, function(found){
@@ -117,7 +90,7 @@ var populate = function(){
             .addClass("title");
         var tracked_element_a = $('<a>')
             .text(toBeAdded.title)
-            .attr("src", toBeAdded.url)
+            .attr("href", 'http://www.google.com')//toBeAdded.url)
             .appendTo(tracked_element_title);
         tracked_element_title.appendTo(tracked_element);
         var tracked_element_dropdown = $('<img>')

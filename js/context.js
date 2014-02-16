@@ -73,6 +73,7 @@ function getHash(s) {
 }
 
 var target = null;
+
 document.addEventListener('mousedown', function(event) {
     target = event.target;
 }, true);
