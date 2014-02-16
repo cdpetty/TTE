@@ -41,6 +41,10 @@ a{
     text-overflow: ellipsis;
 }
 
+.dropdown{
+    padding-right: 5px;
+}
+
 .fulltext {
     font-size: 11pt;
     line-height: 12pt;
