@@ -60,45 +60,16 @@ var check_tracked_elements = function(){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
                     var newHTML = data;
                     console.log('thisis', tracked_element.location);
-                    console.log($(tracked_element.location.toLowerCase(), parseHTML(data)));
-                    /*
-                    var path = tracked_element.location.split('/');
-                    console.log(path);
-                    path.forEach(function(el, i) {
-                        var times = 1;
-                        if(el.indexOf('.') > 0) {
-                            var sp = el.split('.');
-                            times += parseInt(sp[1], 10);
-                            el = sp[0];
-                        }
-                        for(var i=0;i<times;i++) {
-                            newHTML = data.substring(data.indexOf('<' + el.toLowerCase()));
-                        }
-                    });
-                    var lastTag = path[path.length - 1].toLowerCase();
-                    if(lastTag.indexOf('.') > 0) {
-                        lastTag = lastTag.substring(0, lastTag.indexOf('.'));
-                    }
-                    lastTag = '</' + lastTag + '>';
-                    var tagIndex = newHTML.indexOf(lastTag);
-                    newHTML = newHTML.substring(0, tagIndex+lastTag.length);
-                    console.log(newHTML);
-                    /*
+                    var elem = $(tracked_element.location.toLowerCase(), parseHTML(data));
+                    console.log(elem.get(0).outerHTML);
                     var newHash = MD5(newHTML);
-                    
                     //website has changed and db needs to be updated
                     if (newHash !== tracked_element.hash){
                         //update any elements that have been altered
                         update(tracked_element.url, newHash, function(saved){
-                            /*CHANGE INDIVIDUAL TIME
-                            var daysSinceLastChange = 0;
+                            console.log(saved); 
                         });
                     }
-                    else{
-                        var currentDate = new Date();
-                        var daysSinceLastChange = (currentDate - tracked_element.date) / 1000 / 60 / 60 / 24;
-                    }*/
-                    //console.log(newHTML);
                 });
             }
         });
