@@ -40,7 +40,16 @@ var getDate =  function(){
     else formatedDate += ' AM';
     return formatedDate;
 }
+function parseHTML(markup) {
+    var doc = document.implementation.createHTMLDocument("");
 
+    if (markup.toLowerCase().indexOf('<!doctype') > -1) {
+        doc.documentElement.innerHTML = markup;
+    } else {
+        doc.body.innerHTML = markup;
+    }
+    return doc;
+}
 var check_tracked_elements = function(){
     dumpdb(function(db_entries){
         //iterate over all the tracked entries in the db
@@ -51,7 +60,7 @@ var check_tracked_elements = function(){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
                     var newHTML = data;
                     console.log('thisis', tracked_element.location);
-                    console.log($(tracked_element.location, new DOMParser().parseFromString(data, 'text/html')));
+                    console.log($(tracked_element.location.toLowerCase(), parseHTML(data)));
                     /*
                     var path = tracked_element.location.split('/');
                     console.log(path);

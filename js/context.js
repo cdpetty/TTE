@@ -5,7 +5,7 @@ function getElementPath(element)
         var $this = $(this);
         var tagName = this.nodeName;
         if ($this.siblings(tagName).length > 0) {
-            tagName += ":nth-child(" + ($this.prevAll(tagName).length+1) + ")";
+            tagName += ":nth-of-type(" + ($this.prevAll(tagName).length+1) + ")";
         }
         return tagName;
     }).get().join(" > ").toUpperCase();
