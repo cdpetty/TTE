@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('hello world!');
 });
 
+
+
 function storeNew(url, hash, title, loc, callback){
     nextUniqueId(function(id){
         var obj = {};
