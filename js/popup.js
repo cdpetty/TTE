@@ -159,6 +159,7 @@ $(document).ready(function(){
                     tracked_element.siblings().each(function(sibling){
                         $(this).fadeOut("slow");
                     });
+                    $('.full_text').fadeIn();
                 });
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
