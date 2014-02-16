@@ -7,7 +7,9 @@
     "permissions": [
         "contextMenus", 
         "storage",
-        "tabs"
+        "tabs",
+        "http://*/",
+        "https://*/"
     ],
     "background": {
         "scripts": ["lib/jquery-2.1.0.js", "lib/md5.js", "js/background.js"]

@@ -79,21 +79,22 @@ var check_tracked_elements = function(){
                 $.get(key, function(data){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
                     var newHTML = data;
-
+                    /*
                     var newHash = MD5(newHTML);
                     
                     //website has changed and db needs to be updated
                     if (newHash !== tracked_element.hash){
                         //update any elements that have been altered
                         update(tracked_element.url, newHash, function(saved){
-                            /*CHANGE INDIVIDUAL TIME*/
+                            /*CHANGE INDIVIDUAL TIME
                             var daysSinceLastChange = 0;
                         });
                     }
                     else{
                         var currentDate = new Date();
                         var daysSinceLastChange = (currentDate - tracked_element.date) / 1000 / 60 / 60 / 24;
-                    }
+                    }*/
+                    console.log(newHTML);
                 });
             }
         });
@@ -103,7 +104,7 @@ var check_tracked_elements = function(){
     });
 }
 
-setTimeout(check_tracked_elements, 5*60*1000)
+setInterval(check_tracked_elements, 5*1000*60);
 
 var favicon_str = "http://getfavicon.appspot.com/";
 
