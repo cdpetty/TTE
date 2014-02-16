@@ -1,6 +1,8 @@
 var clickHandler = function(info, tab) {
     console.log(info);
-    console.log(tab);
+    var faviconUrl = tab.faviconUrl;
+    var url = tab.url;
+    var title = tab.title;
 }
 
 chrome.contextMenus.create({
