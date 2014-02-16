@@ -10,23 +10,28 @@ $('#check').click(function(){
     });
 });
 
-function storeNew(url, hash, title, location, callback){
-    var obj = {};
-    obj[url] = {"hash":hash, "title":title, "location":location};
-    chrome.storage.sync.set(obj, function(){
-        callback();
+function storeNew(url, hash, title, loc, callback){
+    nextUniqueId(function(id){
+        var obj = {};
+        obj[url] = {"hash":hash, "title":title, "location":loc, "id":id};
+        chrome.storage.sync.set(obj, function(){
+            if (callback) callback();
+        });
     });
 }
 function update(url, hash, callback){
     chrome.storage.sync.get(url, function(found){
-        found.hash = hash;
-        chrome.storage.sync.set(found);
+        var obj = {};
+        obj[url] = {"hash":hash, "title":found.title, "location":found.loc, "id":found.id}
+        chrome.storage.sync.set(obj, function(){
+            if (callback) callback();
+        });
     });
 }
 
 function get(url, callback){
     chrome.storage.sync.get(url, function(found){
-        callback(found);
+        if (callback) callback(found);
     });
 }
 
@@ -34,11 +39,33 @@ function nextUniqueId(callback){
     chrome.storage.sync.get("uniqueid", function(found){
         if (!found.uniqueid) {
             chrome.storage.sync.set({"uniqueid": 1});
-            callback(0);
+            if (callback) callback(0);
         }
         else{
             chrome.storage.sync.set({"uniqueid": found.uniqueid + 1});
-            callback(found.uniqueid);
+            if (callback) callback(found.uniqueid);
         }
     });
 }
+
+function cleardb(){
+    chrome.storage.sync.clear();
+}
+
+function dumpdb(){
+    chrome.storage.sync.get(null, function(found){
+        console.log(found);
+    });
+}
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  for (key in changes) {
+    var storageChange = changes[key];
+    console.log('Storage key "%s" in namespace "%s" changed. ' +
+                'Old value was "%s", new value is "%s".',
+                key,
+                namespace,
+                storageChange.oldValue,
+                storageChange.newValue);
+  }
+});
