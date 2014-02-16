@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('hello world!');
 });
 
-
-
 function compare(url, html, callback){
     var hash = MD5(html);
     console.log(hash);
@@ -59,7 +57,6 @@ function dumpdb(){
         console.log(found);
     });
 }
-
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   for (key in changes) {
     var storageChange = changes[key];

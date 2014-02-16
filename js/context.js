@@ -1,22 +1,15 @@
-var clickHandler = function(info, tab) {
-    //selection editable: true
-    //link linkUrl defined
-    //img mediaType: image
-    //vid mediaType: video
-    console.log(info);
-    var faviconUrl = tab.faviconUrl;
-    var url = tab.url;
-    var title = tab.title;
+function find(el){
+    var path = [];
+    do {
+        path.unshift(el.nodeName + (el.className ? ' class="' + el.className + '"' : ''));
+    } while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
+
+    console.log(path.join(" > "));
 }
 
-chrome.contextMenus.create({
-    id: 'tte', 
-    title: 'Track This Element',
-    contexts: ['page', 'selection', 'link', 'image', 'video'],
-    onclick: clickHandler
-}, function() {
-    if(chrome.extension.lastError) {
-        console.log("Got error", chrome.extension.lastError);
-    }
-});
+var target = null;
+document.addEventListener('mousedown', function(event) {
+    target = event.target;
+    console.log(find(target));
+}, true);
 
