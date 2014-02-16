@@ -9,7 +9,7 @@
     ],
     "background": {
         "scripts" : [
-            "./js/context.html"
+            "js/context.js"
         ],
         "persistent": true
     },
