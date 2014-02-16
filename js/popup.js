@@ -88,11 +88,11 @@ var populate = function(){
             .appendTo(tracked_element);
         var tracked_element_title = $('<span>')
             .addClass("title");
-        var tracked_element_a = $('<a>')
             .text(toBeAdded.title)
-            .attr("href", 'http://www.google.com')//toBeAdded.url)
-            .appendTo(tracked_element_title);
-        tracked_element_title.appendTo(tracked_element);
+            .appendTo(tracked_element);
+        $('.tracked_element_title').click(function(){
+            chrome.tabs.create({ url: toBeAdded.url });
+        });
         var tracked_element_dropdown = $('<img>')
             .addClass("dropdown")
             .attr("src", "down.png")
