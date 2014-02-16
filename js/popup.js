@@ -28,6 +28,35 @@ var dumpdb = function(callback){
     });
 }
 
+function getElementByHash(hashValue) {
+    var el = null;
+    var frags = hashValue.split(":");
+    if (frags.length !== 3)
+        return null;
+
+    else {
+        var tag = frags[0];
+        var hashKey = frags[1];
+        var hash = parseInt(frags[2]);
+
+        $('body *').each(function() {
+            if (hashKey == "H") {
+                if ((getHash($(this).html()) - hash) == 0) {
+                    el = $(this);
+                    return false;
+                }
+            }
+            else {
+                if ((getHash(getElementAttributes($(this))) - hash) == 0) {
+                    el = $(this);
+                    return false;
+                }                    
+            }
+        });
+    }
+    return el;
+}
+
 var check_tracked_elements = function(){
     dumpdb(function(db_entries){
         //iterate over all the tracked entries in the db
@@ -35,9 +64,10 @@ var check_tracked_elements = function(){
             if (key !== "uniqueid"){
                 var tracked_element = db_entries[key];
                 $.get(key, function(data){
-                    /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:
-                    var newHTML*/
-                    var newHash = MD5(newHTML)
+                    /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
+                    var newHTML = data;
+
+                    var newHash = MD5(newHTML);
                     
                     //website has changed and db needs to be updated
                     if (newHash !== tracked_element.hash){
