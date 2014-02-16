@@ -155,27 +155,23 @@ $(document).ready(function(){
                 tracked_element.appendTo(".tracked_elements");
                 
                 //Watch for these events
+
+                console.log(tracked_element_dropdown.src)
                 tracked_element_dropdown.click(function(){
                     if (tracked_element_dropdown.attr("src") === "down.png"){
-                        tracked_element.siblings().each(function(sibling){
-                            $(this).fadeOut("slow");
-                        });
-                        //PUT WHAT FULL TEXT SHOULD HAVE
-                        $('.fulltext').fadeIn(function(){
-                            tracked_element_dropdown.attr("src", "up.png");
-                        });
+                      tracked_element.siblings().each(function(sibling){
+                        $(this).slideUp("slow");
+                      });
+                      $('.fulltext').fadeIn("slow");
+                      tracked_element_dropdown.attr("src", "up.png");
                     }
                     else{
-                        //PUT WHAT FULL TEXT SHOULD HAVE
-                        $('.fulltext').fadeOut(function(){
-                            tracked_element.siblings().each(function(sibling){
-                                $(this).fadeIn("slow");
-                            });
-                        });
-                        tracked_element_dropdown.attr("src", "down.png");
+                      tracked_element.siblings().each(function(sibling){
+                        $(this).SOMETHING();
+                      });
+                      tracked_element_dropdown.attr("src", "down.png");
                     }
                 });
-                
                 var elementName = "#e" + toBeAdded.uniqueid;
                 tracked_element_title.click(function(){
                     console.log("ELEMENTNAME:", elementName);
