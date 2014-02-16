@@ -5,10 +5,10 @@ function getElementPath(element)
         var $this = $(this);
         var tagName = this.nodeName;
         if ($this.siblings(tagName).length > 0) {
-            tagName += "." + ($this.prevAll(tagName).length+1);
+            tagName += ":nth-child(" + ($this.prevAll(tagName).length+1) + ")";
         }
         return tagName;
-    }).get().join("/").toUpperCase();
+    }).get().join(" > ").toUpperCase();
 }
 
 document.addEventListener('mousedown', function(event) {

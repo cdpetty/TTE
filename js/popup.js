@@ -50,6 +50,9 @@ var check_tracked_elements = function(){
                 $.get(key, function(data){
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
                     var newHTML = data;
+                    console.log('thisis', tracked_element.location);
+                    console.log($(tracked_element.location, new DOMParser().parseFromString(data, 'text/html')));
+                    /*
                     var path = tracked_element.location.split('/');
                     console.log(path);
                     path.forEach(function(el, i) {
