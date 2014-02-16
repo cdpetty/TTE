@@ -60,6 +60,7 @@ a{
     font-size: 9pt;
     text-align: left;
     float: left;
+    padding-bottom: 5px;
 }
 
 .update, .element_update {
