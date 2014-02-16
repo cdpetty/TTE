@@ -61,9 +61,9 @@ var check_tracked_elements = function(){
     dumpdb(function(db_entries){
         //iterate over all the tracked entries in the db
         Object.keys(db_entries).forEach(function(key){
-            if (key !== "uniqueid"){
+            if (key !== "uniqueid") {
                 var tracked_element = db_entries[key];
-                $.get(key, function(data){
+                $.get(key, function(data) {
                     /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
                     var newHTML = data;
                     //console.log('thisis', tracked_element.location);
@@ -76,7 +76,7 @@ var check_tracked_elements = function(){
                         //update any elements that have been altered
                         var obj = {};
                         var dating = Date.now();
-                        obj[key] = {"hash":newHash, "title":tracked_element.title, "location":tracked_element.location, "id":tracked_element.id, "date":dating};
+                        obj[key] = {"hash":newHash, "title":tracked_element.title, "location":tracked_element.location, "id":tracked_element.id, "date":dating, "updated":true};
                         chrome.storage.sync.set(obj, function(){
                             console.log("SAVED");
                             updated = true;
@@ -98,9 +98,9 @@ var check_tracked_elements = function(){
     if (updated){
         chrome.browserAction.setIcon({path: 'icon_updated.png'})
     }
-    else{
-        chrome.browserAction.setIcon({path: 'icon.png'})
-    }
+//    else{
+//        chrome.browserAction.setIcon({path: 'icon.png'})
+//    }
 }
 
 setInterval(check_tracked_elements, .15*1000*60);
@@ -108,6 +108,7 @@ setInterval(check_tracked_elements, .15*1000*60);
 chrome.runtime.onMessage.addListener(function(req, sender, sendResponse) {
     updated = false;
     chrome.browserAction.setIcon({path: 'icon.png'})
+    
 });
 
 var clickHandler = function(info, tab) {

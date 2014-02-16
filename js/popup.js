@@ -73,8 +73,12 @@ $(document).ready(function(){
                     .appendTo(tracked_element);
                 var tracked_element_title = $('<span>')
                     .addClass("title")
-                    .text(toBeAdded.title)
-                    .appendTo(tracked_element);
+                    .text(toBeAdded.title);
+                if(toBeAdded.updated){
+                    tracked_element_title.css("color", "#1E0FBE");
+                    obj.updated = false;
+                }
+                tracked_element_title.appendTo(tracked_element);
                 var tracked_element_dropdown = $('<img>')
                     .addClass("dropdown")
                     .attr("src", "down.png")
@@ -94,9 +98,11 @@ $(document).ready(function(){
                 var tracked_element_hr = $('<hr/>')
                     .appendTo(tracked_element);
                 tracked_element.appendTo(".tracked_elements");
-                
+
                 //Watch for these events
-                
+                tracked_element_title.click(function(){
+                    tracked_element_title.css("color","#1E0FBE");
+                });
                 tracked_element_dropdown.click(function(){
                     tracked_element.siblings().each(function(sibling){
                         $(this).slideToggle("slow");
@@ -123,6 +129,15 @@ $(document).ready(function(){
                     //console.log("ELEMENTNAME:", elementName);
                     chrome.tabs.create({ url: toBeAdded.url });
                 });
+                obj.updated = false;
+                obj[key] = obj;
+                console.log(obj);
+                if(toBeAdded.updated){
+                    obj.updated = false;
+                    console.log(":)", obj);
+                    chrome.storage.sync.set(obj, function(saved){
+                    });
+                }
             }
         });
     });
@@ -131,5 +146,8 @@ $(document).ready(function(){
 
 document.addEventListener("DOMContentLoaded", function(){
     chrome.runtime.sendMessage({"notify":true}, function(response){
+        if(response.seen) {
+               
+        }
     });
 });
