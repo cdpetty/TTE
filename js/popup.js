@@ -77,6 +77,13 @@ var check_tracked_elements = function(){
                         chrome.storage.sync.set(obj, function(){
                             console.log("SAVED");
                             updated = true;
+                            chrome.notifications.create("", {
+                                type: 'basic',
+                                title: title + 'updated',
+                                message: 'Check out the changes!'
+                            }, function() {
+
+                            });
                         });
                     }
                 });
