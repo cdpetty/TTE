@@ -109,7 +109,7 @@ var populate = function(){
             .addClass(tracked_element);
         var tracked_element_fav = $('<img>')
             .addClass("favicon")
-            .attr("src", toBeAdded.favIcon)
+            .attr("src", "icon16.png")//toBeAdded.favIcon)
             .appendTo(tracked_element);
         var tracked_element_title = $('<span>')
             .addClass("title")
@@ -129,6 +129,7 @@ var populate = function(){
         }
         var tracked_element_modified = $('<span>')
             .text(daysSinceString)
+            .addClass("element_update")
             .appendTo(tracked_element);
         var tracked_element_hr = $('<hr/>')
             .appendTo(tracked_element);
