@@ -52,53 +52,7 @@ function parseHTML(markup) {
     return doc;
 }
 
-var updated = false;
 
-var check_tracked_elements = function(){
-    dumpdb(function(db_entries){
-        //iterate over all the tracked entries in the db
-        Object.keys(db_entries).forEach(function(key){
-            if (key !== "uniqueid"){
-                var tracked_element = db_entries[key];
-                $.get(key, function(data){
-                    /*GET HTML THAT NEEDS TO BE HASHED AND STORE IT IN:*/
-                    var newHTML = data;
-                    //console.log('thisis', tracked_element.location);
-                    var elem = $(tracked_element.location.toLowerCase(), parseHTML(data));
-                    //console.log(elem.get(0).outerHTML);
-                    var newHash = MD5(newHTML);
-                    //website has changed and db needs to be updated
-                    console.log(newHash, tracked_element.hash);
-                    if (newHash !== tracked_element.hash){
-                        //update any elements that have been altered
-                        var obj = {};
-                        var dating = Date.now();
-                        obj[key] = {"hash":newHash, "title":tracked_element.title, "location":tracked_element.location, "id":tracked_element.id, "date":dating};
-                        chrome.storage.sync.set(obj, function(){
-                            console.log("SAVED");
-                            updated = true;
-                            chrome.notifications.create("", {
-                                type: 'basic',
-                                title: title + 'updated',
-                                message: 'Check out the changes!'
-                            }, function() {
-
-                            });
-                        });
-                    }
-                });
-            }
-        });
-        
-        $('.update').text("Last Updated: " + getDate());
-        /*CHANGE OVERALL TIME*/
-    });
-    if (updated){
-        chrome.browserAction.setIcon({path: 'icon_updated.png'})
-    }
-}
-
-setInterval(check_tracked_elements, .15*1000*60);
 
 var favicon_str = "http://getfavicon.appspot.com/";
 
@@ -176,6 +130,6 @@ $(document).ready(function(){
 });
 
 document.addEventListener("DOMContentLoaded", function(){
-    updated = false;
-    chrome.browserAction.setIcon({path: 'icon.png'})
+    chrome.runtime.sendMessage({"notify":true}, function(response){
+    });
 });
