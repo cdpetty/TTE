@@ -177,4 +177,5 @@ $(document).ready(function(){
 
 document.addEventListener("DOMContentLoaded", function(){
     updated = false;
+    chrome.browserAction.setIcon({path: 'icon.png'})
 });
