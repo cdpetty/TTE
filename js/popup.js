@@ -73,6 +73,13 @@ var check_tracked_elements = function(){
                         obj[key] = {"hash":newHash, "title":tracked_element.title, "location":tracked_element.location, "id":tracked_element.id, "date":dating};
                         chrome.storage.sync.set(obj, function(){
                             console.log("SAVED");
+                            chrome.notifications.create("", {
+                                type: 'basic',
+                                title: title + 'updated',
+                                message: 'Check out the changes!'
+                            }, function() {
+
+                            });
                         });
                     }
                 });
