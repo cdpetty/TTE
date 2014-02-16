@@ -45,7 +45,7 @@ a{
     line-height: 16px;
 }
 
-.update {
+.update, .element_update {
     color: #808080;
     font-size: 8pt;
     text-align: right;
