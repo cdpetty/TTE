@@ -28,6 +28,19 @@ var dumpdb = function(callback){
     });
 }
 
+function getDate(){
+    var unformatedDate = new Date();
+    var formatedDate = '';
+    formatedDate += (unformatedDate.getMonth() + 1) + '/';
+    formatedDate += unformatedDate.getDate() + '/';
+    formatedDate += unformatedDate.getFullYear() + ' at ';
+    formatedDate += unformatedDate.getHours() % 12 == 0 ? 12 : (unformatedDate.getHours()%12)+ ':';
+    formatedDate += unformatedDate.getMinutes();
+    if (unformatedDate.getHours() >=11) formatedDate += ' PM';
+    else formatedDate += ' AM';
+    return formatedDate;
+}
+
 function getElementByHash(hashValue) {
     var el = null;
     var frags = hashValue.split(":");
@@ -84,27 +97,14 @@ var check_tracked_elements = function(){
                 });
             }
         });
+        
+        $('.update').text("Last Updated: " getDate());
         /*CHANGE OVERALL TIME*/
     });
 }
 
-setTimeout(check_tracked_elements, 5*60*1000);
+setTimeout(check_tracked_elements, 5*60*1000)
 
-function getDate(){
-    var unformatedDate = new Date();
-    var formatedDate = '';
-    formatedDate += (unformatedDate.getMonth() + 1) + '/';
-    formatedDate += unformatedDate.getDate() + '/';
-    formatedDate += unformatedDate.getFullYear() + ' at ';
-    formatedDate += unformatedDate.getHours() % 12 == 0 ? 12 : (unformatedDate.getHours()%12)+ ':';
-    formatedDate += unformatedDate.getMinutes();
-    if (unformatedDate.getHours() >=11) formatedDate += ' PM';
-    else formatedDate += ' AM';
-    return formatedDate;
-}
-
-var elements = [];
-var showThisManyElements = null;
 var favicon_str = "http://getfavicon.appspot.com/";
 
 $(document).ready(function(){
@@ -146,8 +146,9 @@ $(document).ready(function(){
                 var tracked_element_hr = $('<hr/>')
                     .appendTo(tracked_element);
                 tracked_element.appendTo(".tracked_elements");
+                
                 var elementName = "#e" + toBeAdded.uniqueid;
-                tracked_element.click(function(){
+                tracked_element_title.click(function(){
                     console.log("ELEMENTNAME:", elementName);
                     chrome.tabs.create({ url: toBeAdded.url });
                 });
